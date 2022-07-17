@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from "./components/Navbar";
+import Artist from "./pages/Artist";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+  HttpLink,
+  ApolloLink,
+} from "@apollo/client";
 
-function App() {
+const httpLink = new HttpLink({ uri: "https://rickandmortyapi.com/graphql" });
+
+const authLink = new ApolloLink((operation, forward) => {
+  operation.setContext({});
+
+  return forward(operation);
+});
+
+const App = () => {
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink), // Chain it with the HttpLink
+    cache: new InMemoryCache(),
+  });
+
+  // const client = new ApolloClient({
+  //   link: link,
+  //   cache: new InMemoryCache(),
+  // });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ApolloProvider client={client}>
+      <Navbar />
+      <Artist />
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
