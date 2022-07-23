@@ -42,4 +42,17 @@ export const queryCharacter = gql`
   }
 `;
 
+export const queryByName = gql`
+  query ($filter: String!) {
+    characters(page: 1, filter: { name: $filter }) {
+      results {
+        id
+        name
+        image
+        species
+      }
+    }
+  }
+`;
+
 export default queryCharacter;
