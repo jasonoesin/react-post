@@ -2,10 +2,11 @@ import { useQuery } from "@apollo/client";
 import { Fragment, useState } from "react";
 import Favorite from "../components/Favorite";
 import { queryCharacter } from "../lib/query/queryCharacter";
+import { useFav } from "../localStorage/useFav";
 
-const Artist = () => {
-  const { loading, error, data } = useQuery(queryCharacter);
-
+const FavoritePage = () => {
+  const { favs, addFav } = useFav();
+  const { loading, data } = useQuery(queryCharacter);
   if (loading) {
     return;
   }
@@ -13,13 +14,15 @@ const Artist = () => {
   console.log(data);
 
   return (
-    <div className="overflow-y-scroll">
-      <div className="transition-all text-center">Rick & Morty Characters</div>
+    <div className="">
+      <div className="transition-all text-center text-2xl">
+        Favorited Characters
+      </div>
 
-      <div className="flex flex-col p-5 space-y-3">
-        {
-          data &&
-            Object.values(data.characters.results).map(({ name, image }) => {
+      <div className="flex flex-col p-5 space-y-3 ">
+        {data &&
+          Object.values(data.characters.results).map(({ name, image, id }) => {
+            if (favs.includes(id))
               return (
                 <div
                   className="relative bg-black text-white rounded-xl shadow-2xl py-3 px-10 flex items-center justify-between"
@@ -42,26 +45,13 @@ const Artist = () => {
                     className="w-[5rem] h-[5rem] bg-cover bg-center rounded-full"
                     style={{ backgroundImage: `url(${image})` }}
                   />
-                  <Favorite />
+                  <Favorite id={id} addFav={addFav} />
                 </div>
               );
-            })
-
-          // data.products.map(({ name, image }) => {
-          //   return (
-          //     <>
-          //       {name}
-          //       <div
-          //         className="w-[5rem] h-[5rem] bg-cover bg-center"
-          //         style={{ backgroundImage: `url(${image})` }}
-          //       />
-          //     </>
-          //   );
-          // })
-        }
+          })}
       </div>
     </div>
   );
 };
 
-export default Artist;
+export default FavoritePage;

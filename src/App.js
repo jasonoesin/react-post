@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import Artist from "./pages/Artist";
+import Character from "./pages/Character";
 import {
   ApolloClient,
   InMemoryCache,
@@ -8,6 +8,9 @@ import {
   HttpLink,
   ApolloLink,
 } from "@apollo/client";
+import { FavContext } from "./localStorage/useFav";
+import { Routes, Route } from "react-router-dom";
+import FavoritePage from "./pages/FavoritePage";
 
 const httpLink = new HttpLink({ uri: "https://rickandmortyapi.com/graphql" });
 
@@ -19,19 +22,23 @@ const authLink = new ApolloLink((operation, forward) => {
 
 const App = () => {
   const client = new ApolloClient({
-    link: authLink.concat(httpLink), // Chain it with the HttpLink
+    link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
   });
 
-  // const client = new ApolloClient({
-  //   link: link,
-  //   cache: new InMemoryCache(),
-  // });
-
   return (
     <ApolloProvider client={client}>
-      <Navbar />
-      <Artist />
+      <FavContext>
+        <div className="flex justify-center">
+          <div className="max-w-[393px] w-full">
+            <Navbar />
+            <Routes>
+              <Route exact path="/" element={<Character />} />
+              <Route path="/favorite" element={<FavoritePage />} />
+            </Routes>
+          </div>
+        </div>
+      </FavContext>
     </ApolloProvider>
   );
 };
