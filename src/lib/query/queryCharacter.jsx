@@ -1,34 +1,5 @@
 import { gql } from "@apollo/client";
 
-// const data = [
-//   { name: "Keshi" },
-//   { name: "Conor Maynard" },
-//   { name: "Rex Orange County" },
-//   { name: "Doja Cat" },
-//   { name: "Clairo" },
-//   { name: "Ariana Grande" },
-// ];
-
-// const artist = gql`
-//   query {
-//     ${data.map(({ name }, index) => {
-//       return (
-//         "data" +
-//         index +
-//         ": " +
-//         `
-//         artist(name: "${name}") {
-//       id
-//       name
-//       image
-
-//     }
-//       `
-//       );
-//     })}}
-
-// `;
-
 export const queryCharacter = gql`
   query {
     characters(page: 1) {
@@ -54,5 +25,34 @@ export const queryByName = gql`
     }
   }
 `;
+
+export function queryById(ids) {
+  if (ids.length === 0)
+    return gql`query{
+    
+  }`;
+
+  console.log("jalan");
+  const query = gql`
+    query ($filter: String!) {
+
+      ${ids.map((id) => {
+        return (
+          id +
+          ": " +
+          `
+          character(id: "${id}") {
+            id
+            name
+            image
+            species
+          }`
+        );
+      })}
+    }
+  `;
+
+  return query;
+}
 
 export default queryCharacter;

@@ -1,12 +1,13 @@
 import { useQuery } from "@apollo/client";
 import { Fragment, useState } from "react";
 import Favorite from "../components/Favorite";
-import { queryCharacter } from "../lib/query/queryCharacter";
+import { queryById, queryCharacter } from "../lib/query/queryCharacter";
 import { useFav } from "../localStorage/useFav";
 
 const FavoritePage = () => {
   const { favs, addFav } = useFav();
   const { loading, data } = useQuery(queryCharacter);
+
   if (loading) {
     return;
   }

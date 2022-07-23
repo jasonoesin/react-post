@@ -9,7 +9,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center py-2 px-4 w-full ">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 fill-white"
+          className="ml-4 h-5 w-5 fill-white"
           viewBox="0 0 20 20"
           fill="currentColor"
           onClick={() => setOpen(true)}
@@ -21,21 +21,9 @@ const Navbar = () => {
           />
         </svg>
         <img
-          className="w-40"
+          className="w-40 mr-24"
           src="https://1000logos.net/wp-content/uploads/2022/03/Rick-and-Morty.png"
         />
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 fill-white"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-            clipRule="evenodd"
-          />
-        </svg>
       </div>
       {open && (
         <>
