@@ -26,31 +26,26 @@ export const queryByName = gql`
   }
 `;
 
-export function queryById(ids) {
-  if (ids.length === 0)
-    return gql`query{
-    
-  }`;
-
-  console.log("jalan");
+export function queryById(id) {
   const query = gql`
-    query ($filter: String!) {
-
-      ${ids.map((id) => {
-        return (
-          id +
-          ": " +
-          `
-          character(id: "${id}") {
-            id
-            name
-            image
-            species
-          }`
-        );
-      })}
+  query{
+    character(id: "${id}") {
+      id
+      name
+      image
+      species
+      gender
+      location{
+        name
+      }
+      episode{
+        name
+        episode
+      }
+      status
     }
-  `;
+  }
+`;
 
   return query;
 }

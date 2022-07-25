@@ -1,10 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { Fragment, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Favorite from "../components/Favorite";
 import { queryById, queryCharacter } from "../lib/query/queryCharacter";
 import { useFav } from "../localStorage/useFav";
 
 const FavoritePage = () => {
+  const nav = useNavigate();
   const { favs, addFav } = useFav();
   const { loading, data } = useQuery(queryCharacter);
 
@@ -16,7 +18,7 @@ const FavoritePage = () => {
 
   return (
     <div className="">
-      <div className="transition-all text-center text-2xl">
+      <div className="text-gray-700 font-medium transition-all text-center text-2xl">
         Favorited Characters
       </div>
 
@@ -32,7 +34,10 @@ const FavoritePage = () => {
                   <div className="w-1/2 text-sm">
                     {name}
                     <div
-                      className="mt-2 w-1/2 py-1 text-center rounded p-0.5 text-xs text-gray-500"
+                      onClick={() => {
+                        nav("/detail/" + id);
+                      }}
+                      className="cursor-pointer mt-2 w-1/2 py-1 text-center rounded p-0.5 text-xs text-gray-500"
                       style={{
                         background: "rgb(165,240,243)",
                         background:

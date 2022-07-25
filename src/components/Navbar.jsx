@@ -44,7 +44,7 @@ const Navbar = () => {
                 }}
                 to={"/"}
               >
-                <li>Character</li>
+                <li className="text-lg">Character</li>
               </Link>
               {/* <li>Episodes</li> */}
               <Link
@@ -53,7 +53,7 @@ const Navbar = () => {
                 }}
                 to={"/favorite"}
               >
-                <li>Favorite</li>
+                <li className="text-lg">Favorite</li>
               </Link>
             </ul>
           </div>

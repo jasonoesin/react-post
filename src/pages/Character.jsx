@@ -5,13 +5,14 @@ import { queryByName, queryCharacter } from "../lib/query/queryCharacter";
 import { useFav } from "../localStorage/useFav";
 import Lottie from "react-lottie";
 import data from "../animation/load.json";
+import { Link, useNavigate } from "react-router-dom";
 
 const Character = () => {
   const [filter, setFilter] = useState("");
 
   return (
     <div className="">
-      <div className="transition-all text-center text-2xl">
+      <div className="text-gray-700 font-medium transition-all text-center text-2xl">
         Rick & Morty Characters
       </div>
       <div className="mt-4 flex justify-center">
@@ -48,6 +49,7 @@ const CharacterRender = ({ filter }) => {
   // const { loading, data } = useQuery(filter ? queryByName : queryCharacter, {
   //   variables: { filter },
   // });
+  const nav = useNavigate();
 
   const { loading, data } = useQuery(queryCharacter);
 
@@ -58,20 +60,6 @@ const CharacterRender = ({ filter }) => {
       </div>
     );
   }
-
-  console.log(data.characters.results.length);
-
-  // if (data.characters.results.length === 0) {
-  //   return (
-  //     <div className="p-5">
-  //       <div className="relative min-h-[6rem] bg-black text-white rounded-xl shadow-2xl py-3 px-10 flex items-center justify-between">
-  //         <div className="w-full text-sm font-bold text-center">
-  //           No Character Found
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   var flag = 0;
 
@@ -91,8 +79,12 @@ const CharacterRender = ({ filter }) => {
               >
                 <div className="w-1/2 text-sm">
                   {name}
+
                   <div
-                    className="mt-2 w-1/2 py-1 text-center rounded p-0.5 text-xs text-gray-500"
+                    onClick={() => {
+                      nav("/detail/" + id);
+                    }}
+                    className="cursor-pointer mt-2 w-2/3 py-1 text-center rounded p-0.5 text-xs text-gray-500"
                     style={{
                       background: "rgb(165,240,243)",
                       background:

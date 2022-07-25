@@ -11,6 +11,7 @@ import {
 import { FavContext } from "./localStorage/useFav";
 import { Routes, Route } from "react-router-dom";
 import FavoritePage from "./pages/FavoritePage";
+import Detail from "./pages/Detail";
 
 const httpLink = new HttpLink({ uri: "https://rickandmortyapi.com/graphql" });
 
@@ -35,6 +36,7 @@ const App = () => {
             <Routes>
               <Route exact path="/" element={<Character />} />
               <Route path="/favorite" element={<FavoritePage />} />
+              <Route path="/detail/:id" element={<Detail />} />
             </Routes>
           </div>
         </div>
